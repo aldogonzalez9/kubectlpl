@@ -1,0 +1,15 @@
+{
+  "key1": "value1",
+  "key2": "value2",
+  "key3": "value3",
+  "key4": "",
+  "key5": "",
+  "logLevel": "INFO",
+  "message": "A message",
+  "payload": "{\"nested_key_1\": \"nested_value_1\", \"nested_key_2\": 3}",
+  "key6": "",
+  "timeStamp": "2023-03-04 20:37:20.506309",
+  "key8": "",
+  "key9": "",
+  "key10": ""
+}

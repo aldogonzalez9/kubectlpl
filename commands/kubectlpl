@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+import sys
+import getopt
+
+from kubectl_prettylogs_wrapper.constants import DEFAULT_SINCE_TIME, LOG_LEVEL_INFO_KEY
+from kubectl_prettylogs_wrapper.client import KubectlPrettyLogsWrapperClient
+
+
+def kubectlpl(argv):
+    arg_namespace = ""
+    arg_since = DEFAULT_SINCE_TIME
+    arg_log_level = LOG_LEVEL_INFO_KEY
+    arg_container = ""
+
+    command_name = argv[0].split("/")[-1]
+    arg_help = "{0} (POD) [-c <container>] [-n <namespace>] [-s <since>] [-l <log-level>]".format(command_name)
+
+    try:
+        opts, args = getopt.gnu_getopt(argv[1:], "hn:s:l:c:", ["help", "namespace=", "since=", "log-level=", "container="])
+    except:
+        print(arg_help)
+        sys.exit(2)
+
+    if not args:
+        print(f"error: No pod, expected: {arg_help}")
+        sys.exit(2)
+    arg_pod = " ".join(args)
+
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print(arg_help)
+            sys.exit(2)
+        elif opt in ("-n", "--namespace"):
+            arg_namespace = arg
+        elif opt in ("-s", "--since"):
+            arg_since = arg
+        elif opt in ("-l", "--log-level"):
+            arg_log_level = arg.upper()
+        elif opt in ("-c", "--container"):
+            arg_container = arg
+
+    pretty_logger_client = KubectlPrettyLogsWrapperClient(
+        pod=arg_pod,
+        name_space=arg_namespace,
+        since=arg_since,
+        selected_logging_level=arg_log_level,
+        container=arg_container
+    )
+    pretty_logger_client.get_pod_logs()
+
+
+if __name__ == "__main__":
+    kubectlpl(sys.argv)
