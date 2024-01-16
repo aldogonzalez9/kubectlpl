@@ -13,7 +13,7 @@ some good format of the logs, so I created this command with that intention.
 
 1. Clone the repo
    ```sh
-   git clone https://github.anaplan.com/aldo-gonzalez/kubectlpl.git
+   git clone https://github.com/aldogonzalez9/kubectlpl
    ```
 2. Go to project folder and install the command
    ```sh
